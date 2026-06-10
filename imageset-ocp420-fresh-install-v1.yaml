@@ -179,16 +179,16 @@ mirror:
               maxVersion: '4.20.0-202605260442'
         # for Numa resources operator
         - name: numaresources-operator
-          defaultChannel: 4.20
+          defaultChannel: '4.20'
           channels:
-            - name: 4.20
+            - name: '4.20'
               minVersion: '4.20.1'
               maxVersion: '4.20.1'
         # for ACM ZTP and policy features
         - name: topology-aware-lifecycle-manager
-          defaultChannel: 4.20
+          defaultChannel: '4.20'
           channels:
-            - name: 4.20
+            - name: '4.20'
               minVersion: '4.20.3'
               maxVersion: '4.20.3'
         # for self healing operators
@@ -239,14 +239,13 @@ mirror:
           defaultChannel: stable-1.5
           channels:
             - name: stable-1.5
-              minVersion: '1.5.1777464218'
-              maxVersion: '1.5.1777464218'
-           
+              minVersion: '5.0.1777464218'
+              maxVersion: '5.0.1777464218'          
   additionalImages:
-  - name: registry.redhat.io/ubi8/ubi:latest
-  - name: registry.redhat.io/ubi9/ubi:latest
-  - name: registry.redhat.io/rhel9/support-tools:latest
-  - name: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
-  - name: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.15.0
-  - name：quay.io/pg.next/pg-must-gather:latest
-  - name: registry.redhat.io/openshift4/noderesourcetopology-scheduler-rhel9:v4.20
+    - name: registry.redhat.io/ubi8/ubi:latest
+    - name: registry.redhat.io/ubi9/ubi:latest
+    - name: registry.redhat.io/rhel9/support-tools:latest
+    - name: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
+    - name: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.15.0
+    - name: quay.io/pg.next/pg-must-gather:latest
+    - name: registry.redhat.io/openshift4/noderesourcetopology-scheduler-rhel9:v4.20
