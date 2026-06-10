@@ -63,11 +63,11 @@ mirror:
               minVersion: '4.20.0-202605260442'
               maxVersion: '4.20.0-202605260442'
         - name: multicluster-engine
-          defaultChannel: stable-2.11
+          defaultChannel: stable-2.10
           channels:
-            - name: stable-2.11
-              minVersion: '2.11'
-              maxVersion: '2.11'
+            - name: stable-2.10
+              minVersion: '2.10.3'
+              maxVersion: '2.10.3'
         - name: netobserv-operator
           defaultChannel: stable
           channels:
