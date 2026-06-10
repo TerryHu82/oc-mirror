@@ -222,7 +222,7 @@ mirror:
           channels:
             - name: stable-v1.19
               minVersion: '1.19.0'
-              maxVersion: '5.10.0'
+              maxVersion: '1.19.0'
         - name: amq7-interconnect-operator
           defaultChannel: latest
           channels:
@@ -249,3 +249,4 @@ mirror:
   - name: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
   - name: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.15.0
   - name：quay.io/pg.next/pg-must-gather:latest
+  - name: registry.redhat.io/openshift4/noderesourcetopology-scheduler-rhel9:v4.20
