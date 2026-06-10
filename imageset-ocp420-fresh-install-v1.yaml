@@ -84,8 +84,8 @@ mirror:
           defaultChannel: stable-4.20
           channels:
             - name: stable-4.20
-              minVersion: '4.20.8-rhodf'
-              maxVersion: '4.20.8-rhodf'
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
         - name: odf-csi-addons-operator
           defaultChannel: stable-4.20
           channels:
