@@ -1,0 +1,185 @@
+apiVersion: mirror.openshift.io/v1alpha2
+kind: ImageSetConfiguration
+storageConfig:
+  local:
+    path: ./
+mirror:
+  operators:
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.20
+      targetTag: v4.20-20260610
+      packages:
+        - name: advanced-cluster-management
+          defaultChannel: release-2.15
+          channels:
+            - name: release-2.15
+              minVersion: '2.15.3'
+              maxVersion: '2.15.3'
+        - name: rhacs-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.10.3'
+              maxVersion: '4.10.3'
+        - name: amq-streams
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '3.2.0-16'
+              maxVersion: '3.2.0-16'
+        - name: cluster-logging
+          defaultChannel: stable-6.5
+          channels:
+            - name: stable-6.5
+              minVersion: '6.5.1'
+              maxVersion: '6.5.1'
+        - name: loki-operator
+          defaultChannel: stable-6.5
+          channels:
+            - name: stable-6.5
+              minVersion: '6.5.1'
+              maxVersion: '6.5.1'
+        - name: cluster-observability-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '1.4.0'
+              maxVersion: '1.4.0'
+        - name: compliance-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '1.9.0'
+              maxVersion: '1.9.0'
+        - name: kubevirt-hyperconverged
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.15'
+              maxVersion: '4.20.15'
+        - name: local-storage-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605260442'
+              maxVersion: '4.20.0-202605260442'
+        - name: multicluster-engine
+          defaultChannel: stable-2.11
+          channels:
+            - name: stable-2.11
+              minVersion: '2.11'
+              maxVersion: '2.11'
+        - name: netobserv-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '1.12.0'
+              maxVersion: '1.12.0'
+        - name: odf-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: ocs-client-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.8-rhodf'
+              maxVersion: '4.20.8-rhodf'
+        - name: odf-csi-addons-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-dependencies
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-multicluster-orchestrator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-prometheus-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: rook-ceph-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: mcg-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: ocs-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: recipe
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: cephcsi-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: openshift-gitops-operator
+          defaultChannel: latest
+          channels:
+            - name: latest
+              minVersion: '1.20.4'
+              maxVersion: '1.20.4'
+        - name: openshift-pipelines-operator-rh
+          defaultChannel: latest
+          channels:
+            - name: latest
+              minVersion: '1.22.2'
+              maxVersion: '1.22.2'
+        - name: quay-operator
+          defaultChannel: stable-3.16
+          channels:
+            - name: stable-3.16
+              minVersion: '3.16.4'
+              maxVersion: '3.16.4'
+        - name: kubernetes-nmstate-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605270550'
+              maxVersion: '4.20.0-202605270550'
+        - name: metallb-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605260442'
+              maxVersion: '4.20.0-202605260442'
+        - name: sriov-network-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605260442'
+              maxVersion: '4.20.0-202605260442'
+  additionalImages:
+  - name: registry.redhat.io/ubi8/ubi:latest
+  - name: registry.redhat.io/ubi9/ubi:latest
+  - name: registry.redhat.io/rhel9/support-tools:latest
+  - name: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
+  - name: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.15.0
+  - name：quay.io/pg.next/pg-must-gather:latest
