@@ -26,6 +26,7 @@ mirror:
             - name: stable
               minVersion: '3.2.0-16'
               maxVersion: '3.2.0-16'
+        # use 6.5 for now, will upgrade to 6.6 when released
         - name: cluster-logging
           defaultChannel: stable-6.5
           channels:
@@ -176,6 +177,71 @@ mirror:
             - name: stable
               minVersion: '4.20.0-202605260442'
               maxVersion: '4.20.0-202605260442'
+        # for Numa resources operator
+        - name: numaresources-operator
+          defaultChannel: 4.20
+          channels:
+            - name: 4.20
+              minVersion: '4.20.1'
+              maxVersion: '4.20.1'
+        # for ACM ZTP and policy features
+        - name: topology-aware-lifecycle-manager
+          defaultChannel: 4.20
+          channels:
+            - name: 4.20
+              minVersion: '4.20.3'
+              maxVersion: '4.20.3'
+        # for self healing operators
+        - name: node-healthcheck-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '0.10.3'
+              maxVersion: '0.10.3'
+        - name: self-node-remediation
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '0.11.1'
+              maxVersion: '0.11.1'
+        - name: fence-agents-remediation
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '0.6.1'
+              maxVersion: '0.6.1'
+        - name: node-maintenance-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '5.5.0'
+              maxVersion: '5.5.0'
+        # for STF
+        - name: openshift-cert-manager-operator
+          defaultChannel: stable-v1.19
+          channels:
+            - name: stable-v1.19
+              minVersion: '1.19.0'
+              maxVersion: '5.10.0'
+        - name: amq7-interconnect-operator
+          defaultChannel: latest
+          channels:
+            - name: latest
+              minVersion: '1.10.20'
+              maxVersion: '1.10.20'
+        - name: service-telemetry-operator
+          defaultChannel: stable-1.5
+          channels:
+            - name: stable-1.5
+              minVersion: '1.5.1777453225'
+              maxVersion: '1.5.1777453225'
+        - name: smart-gateway-operator
+          defaultChannel: stable-1.5
+          channels:
+            - name: stable-1.5
+              minVersion: '1.5.1777464218'
+              maxVersion: '1.5.1777464218'
+           
   additionalImages:
   - name: registry.redhat.io/ubi8/ubi:latest
   - name: registry.redhat.io/ubi9/ubi:latest
