@@ -1,0 +1,389 @@
+apiVersion: mirror.openshift.io/v2alpha1
+kind: ImageSetConfiguration
+mirror:
+  operators:                
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.20
+      targetTag: v4.20-20260610
+      packages:
+        # upgrade path: 2.13.0 --> 2.15.3 as skipRange(>=2.13.0 <2.15.3)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: switch channel from 'release-2.13' to 'relase-2.15'
+        # step 3: upgrade ACM operator. This is to resolve OLM dependency (ACM 2.13 has maxOCP=4.19 dependency)
+        # step 4: continue OCP upgrade from 4.19 to 4.20
+        - name: advanced-cluster-management
+          defaultChannel: release-2.15
+          channels:
+            - name: release-2.15
+              minVersion: '2.15.3'
+              maxVersion: '2.15.3'
+              
+        # upgrade path: 4.8.0 --> 4.9.7  --> 4.10.3
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel 'stable'
+        # step 4: upgrade rhacs operator         
+        - name: rhacs-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.9.7'
+              maxVersion: '4.10.3'
+              
+        # upgrade path: 2.9.1-1 --> 3.0.1-7 --> 3.1.0-14 --> 3.2.0-16
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel 'stable'
+        # step 4: upgrade amq-streams operator
+        - name: amq-streams
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '3.0.1-7' 
+              maxVersion: '3.2.0-16'
+         
+        # use 6.5 for now, will upgrade to 6.6 when released
+        # upgrade path: 6.3.0 --> 6.5.1 as skipRange(>=6.3.0-0 <6.5.1)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: switch channel from 'stable-6.3' to 'stable-6.5'
+        # step 4: upgrade cluster-logging
+        - name: cluster-logging
+          defaultChannel: stable-6.5
+          channels:
+            - name: stable-6.5
+              minVersion: '6.5.1'  
+              maxVersion: '6.5.1'
+        - name: loki-operator
+          defaultChannel: stable-6.5
+          channels:
+            - name: stable-6.5
+              minVersion: '6.5.1'
+              maxVersion: '6.5.1'
+              
+        # upgrade path: 1.2.2 --> 1.4.0 as skipRange(>=0.1.0 <1.4.0)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel 'stable'
+        # step 4: upgrade coo
+        - name: cluster-observability-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '1.4.0'
+              maxVersion: '1.4.0'
+        
+        # upgrade path: 1.7.0 --> 1.9.0 as skipRange(>=1.0.0 <1.9.0)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel 'stable'
+        # step 4: upgrade compliance-operator        
+        - name: compliance-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '1.9.0'
+              maxVersion: '1.9.0'
+
+        # upgrade path: 4.18.11 --> 4.19.3 --> 4.19.6 --> 4.20.0 --> 4.20.15
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel 'stable'
+        # step 4: upgrade compliance-operator                 
+        - name: kubevirt-hyperconverged
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.19.3'
+              maxVersion: '4.20.15'
+                            
+        # upgrade path: 4.18.0-202507081733 --> 4.20.0-202605260442 as skipRange(>=4.3.0 <4.20.0-202605260442)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel 'stable'
+        # step 4: upgrade LSO                      
+        - name: local-storage-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605260442'
+              maxVersion: '4.20.0-202605260442'
+
+        # upgrade path: 2.8.2 --> 2.10.3 as skipRange(>=2.8.0 <2.10.3)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: switch channel from 'stable-2.8' to 'stable-2.10'
+        # step 3: upgrade MCE operator. This is to resolve OLM dependency (MCE 2.8 has maxOCP=4.19 dependency)
+        # step 4: upgrade OCP from 4.19 to 4.20
+        - name: multicluster-engine
+          defaultChannel: stable-2.10
+          channels:
+            - name: stable-2.10
+              minVersion: '2.10.3'
+              maxVersion: '2.10.3'
+              
+         # fresh install     
+        - name: netobserv-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '1.12.0'
+              maxVersion: '1.12.0'
+              
+        # upgrade path: 4.18.7 --> 4.19.18 --> 4.20.13
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: switch ODF channel from 'stable-4.18' to 'stable-4.19'
+        # step 3: upgrade ODF operator. This is to resolve OLM dependency
+        # step 4: upgrade OCP from 4.19 to 4.20
+        # step 5: upgrade ODF channel from 'stable-4.19' to 'stable-4.20'
+        # step 6: upgrade ODF operator.
+        - name: odf-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: ocs-client-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-csi-addons-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-dependencies
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-multicluster-orchestrator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: odf-prometheus-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: rook-ceph-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: mcg-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: ocs-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: recipe
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+        - name: cephcsi-operator
+          defaultChannel: stable-4.20
+          channels:
+            - name: stable-4.19
+              minVersion: 4.19.18-rhodf
+              maxVersion: 4.19.18-rhodf          
+            - name: stable-4.20
+              minVersion: '4.20.13-rhodf'
+              maxVersion: '4.20.13-rhodf'
+
+        # upgrade path: 1.16.2 --> 1.20.0 --> 1.20.1 --> 1.20.2 --> 1.20.3 --> 1.20.4
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel "latest"
+        # step 4: upgrade gitops operator
+        - name: openshift-gitops-operator
+          defaultChannel: latest
+          channels:
+            - name: latest
+              minVersion: '1.20.0'
+              maxVersion: '1.20.4'
+              
+        # upgrade path: 1.19.1 --> 1.20.5 --> 1.21.1 --> 1.22.2
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel "latest"
+        # step 4: upgrade pipeline operator          
+        - name: openshift-pipelines-operator-rh
+          defaultChannel: latest
+          channels:
+            - name: latest
+              minVersion: '1.20.5'
+              maxVersion: '1.22.2'
+
+        # Below upgrade path is based on the assumption that installed Quay operator on OCP 4.18 is 3.14.latest (3.14.8 in this case)
+        # upgrade path: 3.14.8 --> 3.16.4 as skipRange(>=3.13.0 <3.16.4)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel "stable-3.16"
+        # step 4: upgrade Quay operator                     
+        - name: quay-operator
+          defaultChannel: stable-3.16
+          channels:
+            - name: stable-3.16
+              minVersion: '3.16.4'
+              maxVersion: '3.16.4'
+
+        # upgrade path: 4.18.0-202507091633 --> 4.20.0-20260527055 as skipRange(>=4.3.0 <4.20.0-202605270550)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel "stable"
+        # step 4: upgrade nmstate operator                          
+        - name: kubernetes-nmstate-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605270550'
+              maxVersion: '4.20.0-202605270550'
+
+        # upgrade path: 4.18.0-202507091633 --> 4.20.0-202605260442 as skipRange(>=4.8.0 <4.20.0)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel "stable"
+        # step 4: upgrade metallb operator                          
+        - name: metallb-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605260442'
+              maxVersion: '4.20.0-202605260442'
+
+        # upgrade path: 4.18.0-202507081733 --> 4.20.0-202605260442 as skipRange(>=4.3.0-0 <4.20.0-202605260442)
+        # step 1: upgrade OCP from 4.18 to 4.19
+        # step 2: upgrade OCP from 4.19 to 4.20
+        # step 3: keep channel "stable"
+        # step 4: upgrade sriov operator                                       
+        - name: sriov-network-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '4.20.0-202605260442'
+              maxVersion: '4.20.0-202605260442'
+              
+        # for Numa resources operator
+        # fresh install
+        - name: numaresources-operator
+          defaultChannel: '4.20'
+          channels:
+            - name: '4.20'
+              minVersion: '4.20.1'
+              maxVersion: '4.20.1'
+              
+        # for ACM ZTP and policy features
+        # fresh install
+        - name: topology-aware-lifecycle-manager
+          defaultChannel: '4.20'
+          channels:
+            - name: '4.20'
+              minVersion: '4.20.3'
+              maxVersion: '4.20.3'
+              
+        # for self healing operators
+        # fresh install
+        - name: node-healthcheck-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '0.10.3'
+              maxVersion: '0.10.3'
+        - name: self-node-remediation
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '0.11.1'
+              maxVersion: '0.11.1'
+        - name: fence-agents-remediation
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '0.6.1'
+              maxVersion: '0.6.1'
+        - name: node-maintenance-operator
+          defaultChannel: stable
+          channels:
+            - name: stable
+              minVersion: '5.5.0'
+              maxVersion: '5.5.0'
+              
+        # for STF
+        # old version unknown
+        - name: openshift-cert-manager-operator
+          defaultChannel: stable-v1.19
+          channels:
+            - name: stable-v1.19
+              minVersion: '1.19.0'
+              maxVersion: '1.19.0'
+        - name: amq7-interconnect-operator
+          defaultChannel: latest
+          channels:
+            - name: latest
+              minVersion: '1.10.20'
+              maxVersion: '1.10.20'
+        - name: service-telemetry-operator
+          defaultChannel: stable-1.5
+          channels:
+            - name: stable-1.5
+              minVersion: '1.5.1777453225'
+              maxVersion: '1.5.1777453225'
+        - name: smart-gateway-operator
+          defaultChannel: stable-1.5
+          channels:
+            - name: stable-1.5
+              minVersion: '5.0.1777464218'
+              maxVersion: '5.0.1777464218'          
+  additionalImages:
+    - name: registry.redhat.io/ubi8/ubi:latest
+    - name: registry.redhat.io/ubi9/ubi:latest
+    - name: registry.redhat.io/rhel9/support-tools:latest
+    - name: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
+    - name: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.15.0
+    - name: quay.io/pg.next/pg-must-gather:latest
+    - name: registry.redhat.io/openshift4/noderesourcetopology-scheduler-rhel9:v4.20
